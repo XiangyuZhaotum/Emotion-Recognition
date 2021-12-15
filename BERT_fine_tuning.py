@@ -24,10 +24,12 @@ data_upsample = resample(data[data['good_bad'] == 1], replace=True, n_samples=da
 data_balanced = np.vstack((data[data['good_bad'] == 0], data_upsample))
 data_balanced = pd.DataFrame(data_balanced, columns=['Transcript', 'good_bad'])
 
-model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
+# model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
+model = BertForSequenceClassification.from_pretrained('bert-base-german-cased')
 model.train()
 
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+# tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+tokenizer = BertTokenizer.from_pretrained('bert-base-german-cased')
 encoded = tokenizer(data_balanced['Transcript'].values.tolist(), padding=True, truncation=True, return_tensors='pt')
 
 input_id = encoded['input_ids']
